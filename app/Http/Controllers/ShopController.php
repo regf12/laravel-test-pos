@@ -35,9 +35,9 @@ class ShopController extends Controller
 
         $user = Auth::user();
         Log::create([
-            "user_id"       => $user->id,
-            "accion"        => 'store',
-            "reference_id"  => $shop->id
+            "user_id"       => $user->name,
+            "accion"        => 'Registro',
+            "reference_id"  => $shop->comercio
         ]);
 
         return response()->json([
@@ -79,9 +79,9 @@ class ShopController extends Controller
 
         $user = Auth::user();
         Log::create([
-            "user_id"       => $user->id,
-            "accion"        => 'destroy',
-            "reference_id"  => $shop->id
+            "user_id"       => $user->name,
+            "accion"        => 'Eliminacion',
+            "reference_id"  => $shop->comercio
         ]);
 
         return response()->json([
@@ -151,9 +151,9 @@ class ShopController extends Controller
                 ]);
 
             Log::create([
-                "user_id"       => $user->id,
-                "accion"        => 'update',
-                "reference_id"  => $shop->id
+                "user_id"       => $user->name,
+                "accion"        => 'Actualizacion',
+                "reference_id"  => $shop->comercio
             ]);
         }
 
