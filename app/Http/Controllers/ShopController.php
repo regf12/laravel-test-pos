@@ -99,7 +99,7 @@ class ShopController extends Controller
     public function get_filter(Request $request)
     {
         if ($request->name!='') {
-            $shops = Shop::where('cliente', $request->name)->where('active',true)->get();
+            $shops = Shop::where('cliente', 'like', "%$request->name%")->where('active',true)->get();
         }else {
             $shops = Shop::where('active', true)->get();
         }
