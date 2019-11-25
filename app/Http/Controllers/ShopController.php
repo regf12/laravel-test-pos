@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Shop;
 use App\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -70,9 +71,9 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        /* Shop::destroy($id); */
+        $shop = Shop::find($id);
 
-        $shop = Shop::where('id', $id)->where('active', true)
+        Shop::where('id', $id)->where('active', true)
             ->update([
                 'active'   => false
             ]);
@@ -90,16 +91,10 @@ class ShopController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Shop  $shop
-     * @return \Illuminate\Http\Response
-     */
     public function get_filter(Request $request)
     {
         if ($request->name!='') {
-            $shops = Shop::where('cliente', 'like', "%$request->name%")->where('active',true)->get();
+            $shops = Shop::where('cliente', 'like', "%{$request->name}%")->where('active', true)->get();
         }else {
             $shops = Shop::where('active', true)->get();
         }
@@ -137,7 +132,8 @@ class ShopController extends Controller
         $user = Auth::user();
 
         foreach ($request->shops as $key => $value) {
-            $shop = Shop::where('id', $value->id)->where('active', true)
+            $shop = Shop::find($value->id);
+            Shop::where('id', $value->id)->where('active', true)
                 ->update([
                     'comercio'   => $value->comercio,
                     'cliente'    => $value->cliente,

@@ -16,11 +16,11 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('user_id')->unsigned();
+            $table->string('user_id');
             $table->string('accion', 128);
 
-            $table->string('table', 128)->default('shops');
-            $table->integer('reference_id');
+            $table->string('table', 128)->default('comercio');
+            $table->string('reference_id');
 
             $table->timestamps();
         });
